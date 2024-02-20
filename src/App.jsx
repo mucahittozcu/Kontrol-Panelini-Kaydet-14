@@ -41,13 +41,13 @@ export default function App() {
       // localStorage.setItem("widgetConfig" , widgetConfig.toString())
       setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
     }
+    // useEffect(() => {
+    //   if(saveRequested){
+    //     localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig))
+    //    setSaveRequested(false)
+    //   }
+    // },[saveRequested,widgetConfig])
     
-      useEffect(() => {
-        if (saveRequested){ 
-          localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig))
-          setSaveRequested(false)
-        }
-      },[widgetConfig,saveRequested])
   // useEffect(()  => {
   // localStorage.setItem("widgetConfig" , widgetConfig.toString())
   // },[widgetConfig])
@@ -89,11 +89,12 @@ export default function App() {
 
   useEffect(() => {
     if (saveRequested) {
+      localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig))
       setTimeout(() => {
         setSaveRequested(false)
       }, 1000)
     }
-  }, [saveRequested])
+  }, [saveRequested,widgetConfig])
 
   function dragHandler(e, data) {
     if (e.target.dataset.type !== 'button') {
