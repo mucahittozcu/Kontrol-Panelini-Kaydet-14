@@ -43,7 +43,7 @@ export default function App() {
     setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
   }
   useEffect(() => {
-      save()
+      save( localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig)))
   },[widgetConfig])
   // useEffect(()  => {
   // localStorage.setItem("widgetConfig" , widgetConfig.toString())
