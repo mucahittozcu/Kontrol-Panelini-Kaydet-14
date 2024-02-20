@@ -30,30 +30,29 @@ export default function App() {
 
   const [saveRequested, setSaveRequested] = useState(false)
     // lazy state
-   const [widgetConfig, setWidgetConfig] =  useState(() => {
-       return  JSON.parse(localStorage.getItem("widgetConfig")) || DEFAULT_CONFIG;
-     });
+    const [widgetConfig, setWidgetConfig] =  useState(() => {
+      const saveConfig = localStorage.getItem("widgetConfig");
+        return saveConfig ? JSON.parse(saveConfig) : DEFAULT_CONFIG;
+      });
   
     //  useState(+localStorage.getItem("widgetConfig") || DEFAULT_CONFIG)
   
+    useEffect(() => {
+        localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig))
+    },[widgetConfig])
 
   function save() {
   // localStorage.setItem("widgetConfig" , widgetConfig.toString())
-    localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig));
     setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
   }
-  useEffect(() => {
-      save( localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig)))
-  },[widgetConfig])
   // useEffect(()  => {
   // localStorage.setItem("widgetConfig" , widgetConfig.toString())
   // },[widgetConfig])
 
-//   const [widgetConfig, setWidgetConfig] =  useState(() => {
-//     const saveConfig = localStorage.getItem("widgetConfig");
-//       return saveConfig ? JSON.parse(saveConfig) : DEFAULT_CONFIG;
-//     });
  
+// const [widgetConfig, setWidgetConfig] =  useState(() => {
+//   return  JSON.parse(localStorage.getItem("widgetConfig")) || DEFAULT_CONFIG;
+// });
 //    //  useState(+localStorage.getItem("widgetConfig") || DEFAULT_CONFIG)
  
 
