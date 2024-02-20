@@ -36,15 +36,18 @@ export default function App() {
       });
   
     //  useState(+localStorage.getItem("widgetConfig") || DEFAULT_CONFIG)
-  
-    useEffect(() => {
-        localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig))
-    },[widgetConfig])
-
-  function save() {
-  // localStorage.setItem("widgetConfig" , widgetConfig.toString())
-    setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
-  }
+    
+    function save() {
+      // localStorage.setItem("widgetConfig" , widgetConfig.toString())
+      setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
+    }
+    
+      useEffect(() => {
+        if (saveRequested){ 
+          localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig))
+          setSaveRequested(false)
+        }
+      },[widgetConfig,saveRequested])
   // useEffect(()  => {
   // localStorage.setItem("widgetConfig" , widgetConfig.toString())
   // },[widgetConfig])
