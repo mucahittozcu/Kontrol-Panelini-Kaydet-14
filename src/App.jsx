@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 import './styles.css'
 
 import blankConfig from './data/blankConfig'
@@ -42,6 +42,9 @@ export default function App() {
     localStorage.setItem("widgetConfig", JSON.stringify(widgetConfig));
     setSaveRequested(true) // Aşağıdaki 126. satırda yeşil "Kaydedildi" mesajının oluşturulmasına neden olur. State daha sonra 70. satırdaki setTimeout tarafından tekrar false değerine ayarlanır ve mesaj kaldırılır.
   }
+  useEffect(() => {
+      save()
+  },[widgetConfig])
   // useEffect(()  => {
   // localStorage.setItem("widgetConfig" , widgetConfig.toString())
   // },[widgetConfig])
